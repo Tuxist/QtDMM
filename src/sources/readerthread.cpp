@@ -25,7 +25,7 @@
 #include <QtSerialPort>
 
 #include "readerthread.h"
-#include <unistd.h>
+
 #include <stdio.h>
 #include <iostream>
 
