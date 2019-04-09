@@ -1,11 +1,12 @@
-find_package(Qt5 COMPONENTS Widgets SerialPort PrintSupport REQUIRED)
-
+find_package(Qt5 COMPONENTS Widgets SerialPort PrintSupport LinguistTools REQUIRED)
+set (CMAKE_CXX_STANDARD 14)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 include_directories(
 	${Qt5Widgets_INCLUDE_DIRS}
 	${Qt5SerialPort_INCLUDE_DIRS}
 	${Qt5PrintSupport_INCLUDE_DIRS}
+	${Qt5LinguistTools_INCLUDE_DIRS}
 	${CMAKE_SOURCE_DIR}/src/sources/
 )
 
@@ -55,6 +56,8 @@ LIST(APPEND QtDMMSRCS
 	sources/Settings.cpp
 )
 
+qt5_create_translation(QM_FILES ${CMAKE_BINARY_DIR} translations/qtdmm_de.ts)
+
 add_definitions(${Qt5Widgets_DEFINITIONS})
 
 set(CMAKE_CXX_FLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} ${CMAKE_CXX_FLAGS}")
@@ -63,12 +66,14 @@ add_executable(QtDMM
 	${QtDMMSRCS} 
 	${UI_GENERATED_HEADERS}
 	${RES_SOURCES}
+	${QM_FILES}
 )
 
 target_link_libraries(QtDMM 
 	${Qt5Widgets_LIBRARIES} 
 	${Qt5SerialPort_LIBRARIES} 
 	${Qt5PrintSupport_LIBRARIES}
+	${Qt5LinguistTools_LIBRARIES}
 )
 
 install(TARGETS QtDMM
